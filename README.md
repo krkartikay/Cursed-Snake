@@ -1,13 +1,13 @@
 # Cursed_Snake
 
 The classic "snake" game made with curses in python using the
-[cursebox library](https://github.com/Tenchi2xh/cursebox)
+[cursebox library](https://github.com/Tenchi2xh/cursebox).
 
 ## Installing
 To run this project you will need to download the source of the [cursebox library](https://github.com/Tenchi2xh/cursebox) and place the "cursebox" folder
-(containing `__init__.py` etc) along with main.py. Run the program with
-`python main.py`.
+(containing `__init__.py` etc) in the same directory as main.py. Run the program
+with `python main.py`.
 
 ## Contributing
-To contribut in the development of this project, fork this repo, make some
+To contribute in the development of this project, fork this repo, make some
 commits on your fork and send a pull request.
