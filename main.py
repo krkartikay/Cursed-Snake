@@ -9,7 +9,7 @@ def main():
         cb.screen.timeout(game.timeout)
         keypress = ""
         escapekeys = ["CTRL+C","q","ESC"]
-        while keypress not in escapekeys and game.running:
+        while keypress not in escapekeys: # and game.running:
             game.tick(keypress)
             drawscreen(game, cb)
             drawstatus(game.status_left,game.status_right,cb)

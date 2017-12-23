@@ -53,16 +53,17 @@ class SnakeGame():
 
     def tick(self, evt):
         if evt == "SKIP":
-            self.snake.pop()
-            self.snakeHead = movept(self.snakeHead,self.direction)
-            self.snake.insert(0,self.snakeHead)
-            self.cleargrid()
-            self.drawGrid()
+            pass
         elif direction(evt) is not None:
             dirn = direction(evt)
-            self.direction = dirn
+            if reverse_direction(self.direction) != dirn:
+                self.direction = dirn
+        if self.running:
             self.snake.pop()
             self.snakeHead = movept(self.snakeHead,self.direction)
+            if self.snakeHead in self.snake:
+                self.running = False
+                self.status_right = "Game Over!"
             self.snake.insert(0,self.snakeHead)
             self.cleargrid()
             self.drawGrid()
