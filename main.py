@@ -1,16 +1,14 @@
-from cursebox import *
-with Cursebox() as cb:
-    greeting = "Hello Curses"
-    keypress = None
-    while keypress!="CTRL+C":
-        width, height = cb.width, cb.height
-        # Center text on the screen
-        cb.put(x=(width - len(greeting)) / 2,
-               y=height / 2, text=greeting,
-               fg=colors.black, bg=colors.white)
-        # Wait for any keypress
-        cb.screen.timeout(200)
-        keypress = str(cb.poll_event())
-        greeting = str(keypress)
-        if greeting=="":
-            greeting = "SKIP"
+import cursebox
+import snake
+
+def main():
+    level = int(raw_input("Level? [1-10] "))
+    with cursebox.Cursebox() as cb:
+        # TODO: ask level within curses
+        game = snake.SnakeGame(level, cb)
+        keypress = ""
+        while keypress!="CTRL+C":
+            game.refreshScreen()
+            keypress = str(cb.poll_event())
+
+main()
