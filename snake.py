@@ -8,7 +8,9 @@ from helpers import *
 
 class SnakeGame():
     """Logic of SnakeGame"""
-    def __init__(self, level, width, height):
+    def __init__(self, width, height):
+        level = 1
+        self.level = level
         self.status_left = "LEVEL = %d"%level
         self.status_right = "Hello, Player!"
         self.width = width
@@ -24,8 +26,8 @@ class SnakeGame():
         init_len = 6
         # start somewhere near in the center ...
         # snake shouldn't be too close to the edge
-        cur_pt = (random.choice(range(2*init_len,width-2*init_len)),
-                          random.choice(range(2*init_len,height-2*init_len)))
+        cur_pt = (random.choice(range(1*init_len,width-1*init_len)),
+                          random.choice(range(1*init_len,height-1*init_len)))
         self.food = (random.choice(range(width)),
                      random.choice(range(height)))
         for i in range(init_len):
@@ -50,6 +52,15 @@ class SnakeGame():
         for pt in self.snake:
             self.setGrid(pt, '=')
         self.setGrid(self.snakeHead, 'O')
+        self.setGrid(self.food, '#')
+
+    def cmppts(self,pt1,pt2):
+        x1,y1 = pt1
+        x2,y2 = pt2
+        if (x1-x2)%self.width==0 and (y1-y2)%self.height==0:
+            return True
+        else:
+            return False
 
     def tick(self, evt):
         if evt == "SKIP":
@@ -59,11 +70,21 @@ class SnakeGame():
             if reverse_direction(self.direction) != dirn:
                 self.direction = dirn
         if self.running:
-            self.snake.pop()
             self.snakeHead = movept(self.snakeHead,self.direction)
             if self.snakeHead in self.snake:
                 self.running = False
                 self.status_right = "Game Over!"
+            if self.cmppts(self.snakeHead, self.food):
+                if self.level==10:
+                    self.status_right = "You Win"
+                    self.running = False
+                self.level += 1
+                self.status_left = "LEVEL = %d"%self.level
+                self.food = (random.choice(range(self.width)),
+                             random.choice(range(self.height)))
+                self.timeout = 100-10*(self.level-1)
+            else:
+                self.snake.pop()
             self.snake.insert(0,self.snakeHead)
             self.cleargrid()
             self.drawGrid()

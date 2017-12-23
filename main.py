@@ -2,10 +2,9 @@ import cursebox
 import snake
 
 def main():
-    level = int(raw_input("Level? [1-10] "))
     with cursebox.Cursebox() as cb:
         # TODO: ask level within curses
-        game = snake.SnakeGame(level, cb.width, cb.height-1)
+        game = snake.SnakeGame(cb.width, cb.height-1)
         cb.screen.timeout(game.timeout)
         keypress = ""
         escapekeys = ["CTRL+C","q","ESC"]
@@ -13,6 +12,7 @@ def main():
             game.tick(keypress)
             drawscreen(game, cb)
             drawstatus(game.status_left,game.status_right,cb)
+            cb.screen.timeout(game.timeout)
             keypress = str(cb.poll_event())
     # TODO: Maintain highscore list here
     pass
