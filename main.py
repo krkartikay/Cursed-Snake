@@ -5,7 +5,7 @@ def main():
     level = int(raw_input("Level? [1-10] "))
     with cursebox.Cursebox() as cb:
         # TODO: ask level within curses
-        game = snake.SnakeGame(level, cb.width,cb.height)
+        game = snake.SnakeGame(level, cb.width, cb.height-1)
         cb.screen.timeout(game.timeout)
         keypress = ""
         escapekeys = ["CTRL+C","q","ESC"]

@@ -56,8 +56,11 @@ class SnakeGame():
             self.snake.insert(0,self.snakeHead)
             self.cleargrid()
             self.drawGrid()
-        elif evt == "UP":
-            raise NotImplementedError()
-
-    def movefwd():
-        pass
+        elif direction(evt) is not None:
+            dirn = direction(evt)
+            self.direction = dirn
+            self.snake.pop()
+            self.snakeHead = movept(self.snakeHead,self.direction)
+            self.snake.insert(0,self.snakeHead)
+            self.cleargrid()
+            self.drawGrid()
