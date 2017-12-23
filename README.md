@@ -10,6 +10,5 @@ To run this project you will need to download the source of the [cursebox librar
 (containing `__init__.py` etc) in the same directory as main.py. Run the program
 with `python main.py`.
 
-## Contributing
-To contribute in the development of this project, fork this repo, make some
-commits on your fork and send a pull request.
+## Licence
+This software has been placed in the public domain. Refer to the file "LICENCE.md" for details.
