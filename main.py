@@ -17,6 +17,7 @@ def main():
     pass
 
 def drawscreen(game, cb):
+    cb.clear()
     for y in range(game.height):
         for x in range(game.width):
             cb.put(x,y, str(game.grid[y][x]),

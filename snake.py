@@ -17,8 +17,8 @@ class SnakeGame():
         self.snakeHead = (0,0)
         self.direction = RIGHT
         self.snakelen = 0
-        self.grid = [[0 for x in range(width)]
-                        for y in range(height)]
+        self.grid = [[" " for x in range(width)]
+                          for y in range(height)]
         self.timeout = 1000-100*(level-1)
         self.running = True
         # level 1 : timeout : 1   sec
