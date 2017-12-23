@@ -19,14 +19,17 @@ class SnakeGame():
         # Initialise Snake
         self.direction = random.choice(directions)
         self.mode = MODE_BLOCKING
-        init_len = 5
-        self.snakelen = init_len
+        init_len = 6
         # start somewhere near in the center ...
         # snake shouldn't be too close to the edge
-        self.snakeHead = (random.choice(range(2*init_len,width-2*init_len)),
+        cur_pt = (random.choice(range(2*init_len,width-2*init_len)),
                           random.choice(range(2*init_len,height-2*init_len)))
         self.food = (random.choice(range(width)),
                      random.choice(range(height)))
+        for i in range(init_len):
+            cur_pt = movept(cur_pt, self.direction)
+            self.snake.insert(0,cur_pt)
+        self.snakeHead = cur_pt
         self.cleargrid()
         self.drawGrid()
 
@@ -37,23 +40,24 @@ class SnakeGame():
         max_x = len(self.grid[0])
         self.grid[y%max_y][x%max_x] = value
 
-    def cleargrid():
-        self.grid = [[" " for x in range(width)]
-                          for y in range(height)]
+    def cleargrid(self):
+        self.grid = [[" " for x in range(self.width)]
+                          for y in range(self.height)]
 
-    def drawGrid():
-        cur_pt = self.snakeHead
-        for i in range(5):
-            cur_pt = movept(cur_pt, reverse_direction(self.direction))
-            self.setGrid(cur_pt, '=')
-        cur_pt = movept(cur_pt, reverse_direction(self.direction))
-        self.setGrid(cur_pt, ' ')
+    def drawGrid(self):
+        for pt in self.snake:
+            self.setGrid(pt, '=')
+        self.setGrid(self.snakeHead, 'O')
 
     def tick(self, evt):
-        self.snakeHead = movept(self.snakeHead, self.direction)
-        self.setGrid(self.snakeHead, 'O')
-        self.cleargrid()
-        self.drawGrid()
+        if evt == "SKIP":
+            self.snake.pop()
+            self.snakeHead = movept(self.snakeHead,self.direction)
+            self.snake.insert(0,self.snakeHead)
+            self.cleargrid()
+            self.drawGrid()
+        elif evt == "UP":
+            raise NotImplementedError()
 
     def movefwd():
         pass

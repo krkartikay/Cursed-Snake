@@ -4,6 +4,10 @@ directions = [UP,DOWN,LEFT,RIGHT]
 MODE_TORODIAL = 5
 MODE_BLOCKING = 6
 
+def log(message):
+    with open("log.txt","a") as f:
+        f.write(message+"\n")
+
 def direction(dirn):
     if dirn=="UP":
         return UP
