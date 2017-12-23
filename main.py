@@ -6,9 +6,10 @@ def main():
     with cursebox.Cursebox() as cb:
         # TODO: ask level within curses
         game = snake.SnakeGame(level, cb.width,cb.height)
-        cb.timeout(game.timeout)
+        cb.screen.timeout(game.timeout)
         keypress = ""
-        while keypress!="CTRL+C" and game.running:
+        escapekeys = ["CTRL+C","q","ESC"]
+        while keypress not in escapekeys and game.running:
             game.tick(keypress)
             drawscreen(game, cb)
             keypress = str(cb.poll_event())
@@ -16,6 +17,13 @@ def main():
     pass
 
 def drawscreen(game, cb):
-    pass
+    for y in range(game.height):
+        for x in range(game.width):
+            cb.put(x,y, str(game.grid[y][x]),
+                fg = cursebox.colors.white,
+                bg = cursebox.colors.black)
+            # TODO: perform some checks here on the output
+            # string and select colors accordingly
+            pass
 
 main()

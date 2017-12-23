@@ -11,8 +11,8 @@ UP,DOWN,LEFT,RIGHT = 1,2,3,4
 class SnakeGame():
     """Logic of SnakeGame"""
     def __init__(self, level, width, height):
-        self.W = width
-        self.H = height
+        self.width = width
+        self.height = height
         self.snake = [] # list of positions in which snake exists
         self.snakeHead = (0,0)
         self.direction = RIGHT
