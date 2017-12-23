@@ -9,6 +9,8 @@ from helpers import *
 class SnakeGame():
     """Logic of SnakeGame"""
     def __init__(self, level, width, height):
+        self.status_left = "LEVEL = %d"%level
+        self.status_right = "Hello, Player!"
         self.width = width
         self.height = height
         self.snake = [] # list of positions in which snake exists
