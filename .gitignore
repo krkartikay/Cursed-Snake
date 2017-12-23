@@ -1,4 +1,5 @@
-cursebox/*
+cursebox
 *.txt
 *tmp*
 *.pyc
+__pycache__
