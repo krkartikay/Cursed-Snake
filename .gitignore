@@ -1,3 +1,4 @@
 cursebox/*
 *.txt
 *tmp*
+*.pyc
