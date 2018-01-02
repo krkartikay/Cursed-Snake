@@ -1,6 +1,6 @@
 # CONSTANTS
 UP,DOWN,LEFT,RIGHT = 1,2,3,4
-directions = [UP,DOWN,LEFT,RIGHT]
+directions = [UP,DOWN,LEFT,RIGHT,'w','a','s','d']
 MODE_TORODIAL = 5
 MODE_BLOCKING = 6
 
@@ -9,13 +9,13 @@ def log(message):
         f.write(message+"\n")
 
 def direction(dirn):
-    if dirn=="UP":
+    if dirn=="UP" or dirn=='w':
         return UP
-    if dirn=="DOWN":
+    if dirn=="DOWN" or dirn=='s':
         return DOWN
-    if dirn=="LEFT":
+    if dirn=="LEFT" or dirn=='a':
         return LEFT
-    if dirn=="RIGHT":
+    if dirn=="RIGHT" or dirn=='d':
         return RIGHT
 
 def reverse_direction(dirn):
@@ -24,11 +24,11 @@ def reverse_direction(dirn):
 
 def movept(pt,dirn):
     x,y = pt
-    if dirn==UP:
+    if dirn==UP or dirn=='w':
         return (x,y-1)
-    if dirn==DOWN:
+    if dirn==DOWN or dirn=='s':
         return (x,y+1)
-    if dirn==LEFT:
+    if dirn==LEFT or dirn=='a':
         return (x-1,y)
-    if dirn==RIGHT:
+    if dirn==RIGHT or dirn=='d':
         return (x+1,y)
