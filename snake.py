@@ -19,7 +19,7 @@ class SnakeGame():
         self.snake = [] # list of positions in which snake exists
         self.food = (0,0)
         self.cleargrid()
-        self.timeout =  (100-10*(self.level-1))/10
+        self.timeout = 50
         self.running = True
         # Initialise Snake
         self.direction = random.choice(directions)
@@ -37,6 +37,7 @@ class SnakeGame():
         self.snakeHead = cur_pt
         self.cleargrid()
         self.drawGrid()
+        self.old_grid = []
 
     def setGrid(self, pt, value):
         # TODO: improve this fxn, use self.mode
@@ -84,10 +85,7 @@ class SnakeGame():
                 self.status_left = "LEVEL = %d"%self.level
                 self.food = (random.choice(range(self.width)),
                              random.choice(range(self.height)))
-                if self.level<8:
-                    self.timeout = (100-10*(self.level-1))/10
-                else:
-                    self.timeout = 0
+                self.timeout = int(self.timeout*0.75)
             if self.inserting>0:
                 self.inserting -= 1
             else:
