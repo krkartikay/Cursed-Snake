@@ -4,12 +4,15 @@ by providing a SnakeGame() class
 """
 
 import random
+import time
 from helpers import *
 
 class SnakeGame():
     """Logic of SnakeGame"""
     def __init__(self, width, height):
         self.inserting = 0
+        self.init_time = time.time()
+        self.debug_mode = False
         level = 1
         self.level = level
         self.status_left = "LEVEL = %d"%level
@@ -54,7 +57,8 @@ class SnakeGame():
         for pt in self.snake:
             self.setGrid(pt, '=')
         self.setGrid(self.snakeHead, 'O')
-        self.setGrid(self.food, '#')
+        if self.food is not None:
+            self.setGrid(self.food, '#')
 
     def cmppts(self,pt1,pt2):
         x1,y1 = pt1
@@ -65,6 +69,16 @@ class SnakeGame():
             return False
 
     def tick(self, evt):
+        # cheatcodes
+        if evt == "*":
+            self.timeout *= 10
+        if evt == "&":
+            if self.level < 10:
+                self.level += 1
+            self.status_left = "LEVEL = %d"%self.level
+        if evt == "^":
+            self.status_left = "(DEBUG MODE ENABLED) LEVEL = %d, timeout = (%d)"%(self.level,self.timeout)
+            self.debug_mode = True
         if evt == "SKIP":
             pass
         elif direction(evt) is not None:
@@ -73,19 +87,25 @@ class SnakeGame():
                 self.direction = dirn
         if self.running:
             self.snakeHead = movept(self.snakeHead,self.direction)
-            if self.snakeHead in self.snake:
+            if self.snakeHead in self.snake and not self.debug_mode:
                 self.running = False
                 self.status_right = "Game Over!"
             if self.cmppts(self.snakeHead, self.food):
                 self.inserting = 15
                 if self.level==10:
-                    self.status_right = "You Win"
+                    self.status_right = "You Win!!!"
+                    self.status_left = "Score: "+str(10000/int(time.time()-self.init_time))+" points"
+                    self.food = None
                     self.running = False
-                self.level += 1
-                self.status_left = "LEVEL = %d"%self.level
-                self.food = (random.choice(range(self.width)),
-                             random.choice(range(self.height)))
-                self.timeout = int(self.timeout*0.75)
+                else:
+                    self.level += 1
+                    if self.debug_mode:
+                        self.status_left = "(DEBUG MODE ENABLED) LEVEL = %d, timeout = (%d)"%(self.level,self.timeout)
+                    else:
+                        self.status_left = "LEVEL = %d"%self.level
+                    self.food = (random.choice(range(self.width)),
+                                 random.choice(range(self.height)))
+                    self.timeout = int(self.timeout*0.75)
             if self.inserting>0:
                 self.inserting -= 1
             else:
