@@ -9,6 +9,7 @@ from helpers import *
 class SnakeGame():
     """Logic of SnakeGame"""
     def __init__(self, width, height):
+        self.inserting = 0
         level = 1
         self.level = level
         self.status_left = "LEVEL = %d"%level
@@ -18,7 +19,7 @@ class SnakeGame():
         self.snake = [] # list of positions in which snake exists
         self.food = (0,0)
         self.cleargrid()
-        self.timeout = 100-10*(level-1)
+        self.timeout =  (100-10*(self.level-1))/10
         self.running = True
         # Initialise Snake
         self.direction = random.choice(directions)
@@ -75,6 +76,7 @@ class SnakeGame():
                 self.running = False
                 self.status_right = "Game Over!"
             if self.cmppts(self.snakeHead, self.food):
+                self.inserting = 15
                 if self.level==10:
                     self.status_right = "You Win"
                     self.running = False
@@ -82,7 +84,12 @@ class SnakeGame():
                 self.status_left = "LEVEL = %d"%self.level
                 self.food = (random.choice(range(self.width)),
                              random.choice(range(self.height)))
-                self.timeout = 100-10*(self.level-1)
+                if self.level<8:
+                    self.timeout = (100-10*(self.level-1))/10
+                else:
+                    self.timeout = 0
+            if self.inserting>0:
+                self.inserting -= 1
             else:
                 self.snake.pop()
             self.snake.insert(0,self.snakeHead)
