@@ -9,7 +9,6 @@ def main():
     global oldscreen
     with cursebox.Cursebox() as cb:
         # TODO: ask level within curses
-        log.append("Hello")
         game = snake.SnakeGame(cb.width, cb.height-1)
         cb.screen.timeout(game.timeout)
         keypress = ""
@@ -46,7 +45,5 @@ def drawstatus(st_l,st_r,cb):
     s = st_l+" "*spaces+st_r
     cb.put(0,y-1,s,cursebox.colors.white,cursebox.colors.black)
 
-
-with open('log.txt','w') as f:
+if __name__=="__main__":
     main()
-    f.writelines(log)
