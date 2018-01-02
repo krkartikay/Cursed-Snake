@@ -19,7 +19,7 @@ def direction(dirn):
         return RIGHT
 
 def reverse_direction(dirn):
-    rev_directions = [DOWN,UP,RIGHT,LEFT]
+    rev_directions = [DOWN,UP,RIGHT,LEFT,'s','d','w','a']
     return rev_directions[directions.index(dirn)]
 
 def movept(pt,dirn):
