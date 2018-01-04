@@ -4,9 +4,10 @@ from copy import deepcopy as cp
 
 oldscreen = []
 log = []
+game = None
 
 def main():
-    global oldscreen
+    global oldscreen, game
     with cursebox.Cursebox() as cb:
         # TODO: ask level within curses
         game = snake.SnakeGame(cb.width, cb.height-1)
@@ -43,7 +44,8 @@ def drawstatus(st_l,st_r,cb):
     y = cb.height
     spaces = cb.width - len(st_r)-len(st_l)
     s = st_l+" "*spaces+st_r
-    cb.put(0,y-1,s,cursebox.colors.white,cursebox.colors.black)
+    bgcolor = cursebox.colors.black if not game.debug_mode else cursebox.colors.red
+    cb.put(0,y-1,s,cursebox.colors.white,bgcolor)
 
 if __name__=="__main__":
     main()

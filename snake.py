@@ -79,6 +79,8 @@ class SnakeGame():
         if evt == "^":
             self.status_left = "(DEBUG MODE ENABLED) LEVEL = %d, timeout = (%d)"%(self.level,self.timeout)
             self.debug_mode = True
+        if evt == "!":
+            self.timeout = 0
         if evt == "SKIP":
             pass
         elif direction(evt) is not None:
@@ -100,7 +102,7 @@ class SnakeGame():
                 else:
                     self.level += 1
                     if self.debug_mode:
-                        self.status_left = "(DEBUG MODE ENABLED) LEVEL = %d, timeout = (%d)"%(self.level,self.timeout)
+                        self.status_left = "(DEBUG MODE ENABLED) LEVEL = %d, timeout = (%d), time=(%d sec), coords=%s"%(self.level,self.timeout,time.time()-self.init_time,str(self.snakeHead))
                     else:
                         self.status_left = "LEVEL = %d"%self.level
                     self.food = (random.choice(range(self.width)),
@@ -111,5 +113,7 @@ class SnakeGame():
             else:
                 self.snake.pop()
             self.snake.insert(0,self.snakeHead)
+            if self.debug_mode:
+                self.status_left = "(DEBUG MODE ENABLED) LEVEL = %d, timeout = (%d), time=(%d sec), coords=%s"%(self.level,self.timeout,time.time()-self.init_time,str(self.snakeHead))
             self.cleargrid()
             self.drawGrid()
