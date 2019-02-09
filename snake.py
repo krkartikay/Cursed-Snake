@@ -1,6 +1,7 @@
 """
 This file will define the logic of the snake game
 by providing a SnakeGame() class
+Game of snakes.
 """
 
 import random
